@@ -90,6 +90,17 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "pdf2image"
+version = "1.16.0"
+description = "A wrapper around the pdftoppm and pdftocairo command line tools to convert PDF to a PIL Image list."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pillow = "*"
+
+[[package]]
 name = "pillow"
 version = "9.3.0"
 description = "Python Imaging Library (Fork)"
@@ -122,6 +133,24 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "pypdf2"
+version = "3.0.0"
+description = "A pure-python PDF library capable of splitting, merging, cropping, and transforming PDF files"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+typing_extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
+
+[package.extras]
+crypto = ["pycryptodome"]
+dev = ["black", "pip-tools", "pre-commit (<2.18.0)", "pytest-cov", "flit", "wheel"]
+docs = ["sphinx", "sphinx-rtd-theme", "myst-parser"]
+full = ["pycryptodome", "pillow"]
+image = ["pillow"]
+
+[[package]]
 name = "pytesseract"
 version = "0.3.10"
 description = "Python-tesseract is a python wrapper for Google's Tesseract-OCR"
@@ -145,14 +174,14 @@ python-versions = ">=3.7"
 name = "typing-extensions"
 version = "4.4.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "5da219ddb96f313b5e45a4c2581c5c1f042de0cfbaa994224845cb2930faae4a"
+content-hash = "0efd75873360199e0584b94b15bc210d5910bfee33ee8171a886fa89b6ad2d61"
 
 [metadata.files]
 autoflake = [
@@ -196,6 +225,10 @@ packaging = [
 pathspec = [
     {file = "pathspec-0.10.3-py3-none-any.whl", hash = "sha256:3c95343af8b756205e2aba76e843ba9520a24dd84f68c22b9f93251507509dd6"},
     {file = "pathspec-0.10.3.tar.gz", hash = "sha256:56200de4077d9d0791465aa9095a01d421861e405b5096955051deefd697d6f6"},
+]
+pdf2image = [
+    {file = "pdf2image-1.16.0-py3-none-any.whl", hash = "sha256:84f79f2b8fad943e36323ea4e937fcb05f26ded0caa0a01181df66049e42fb65"},
+    {file = "pdf2image-1.16.0.tar.gz", hash = "sha256:d58ed94d978a70c73c2bb7fdf8acbaf2a7089c29ff8141be5f45433c0c4293bb"},
 ]
 pillow = [
     {file = "Pillow-9.3.0-1-cp37-cp37m-win32.whl", hash = "sha256:e6ea6b856a74d560d9326c0f5895ef8050126acfdc7ca08ad703eb0081e82b74"},
@@ -267,6 +300,10 @@ platformdirs = [
 pyflakes = [
     {file = "pyflakes-3.0.1-py2.py3-none-any.whl", hash = "sha256:ec55bf7fe21fff7f1ad2f7da62363d749e2a470500eab1b555334b67aa1ef8cf"},
     {file = "pyflakes-3.0.1.tar.gz", hash = "sha256:ec8b276a6b60bd80defed25add7e439881c19e64850afd9b346283d4165fd0fd"},
+]
+pypdf2 = [
+    {file = "PyPDF2-3.0.0.tar.gz", hash = "sha256:340dcc7fd62ad3dc4a132df13617e9c33f1c4c15379846cb95ef14aec9f106f9"},
+    {file = "pypdf2-3.0.0-py3-none-any.whl", hash = "sha256:6758cf78e913ea4bb49facbc85fb6ae78c91f1991367632a07299c9505c18714"},
 ]
 pytesseract = [
     {file = "pytesseract-0.3.10-py3-none-any.whl", hash = "sha256:8f22cc98f765bf13517ead0c70effedb46c153540d25783e04014f28b55a5fc6"},
