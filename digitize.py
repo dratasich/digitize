@@ -17,10 +17,17 @@ parser.add_argument(
     type=str,
     help=f"""Directory of files to digitize.""",
 )
+parser.add_argument(
+    "-r",
+    "--recursive",
+    action="store_true",
+    default=False,
+    help=f"""Recursively search the directory for files to convert.""",
+)
 args = parser.parse_args()
 
 # %% get inputs for OCR (images in directory)
-files = glob.glob(f"{args.path}/*.jpg")
+files = glob.glob(f"{args.path}/**/*.jpg", recursive=args.recursive)
 
 # %% load images
 for f in files:
