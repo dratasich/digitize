@@ -3,19 +3,18 @@
 ## Dependencies
 
 * [tesseract](https://tesseract-ocr.github.io/tessdoc/)
-* [poppler](https://github.com/freedesktop/poppler)
+* [PyPDF2](https://pypdf2.readthedocs.io/en/stable/)
 
 ```bash
 sudo apt install tesseract-ocr tesseract-ocr-deu
-sudo apt install poppler-utils
 ```
-
-## Usage
 
 Install python env:
 ```bash
 poetry install
 ```
+
+## Usage
 
 Convert pdfs and images to text files in the current directory:
 ```bash
