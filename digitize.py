@@ -24,10 +24,20 @@ parser.add_argument(
     default=False,
     help=f"""Recursively search the directory for files to convert.""",
 )
+parser.add_argument(
+    "-e",
+    "--extension",
+    type=str,
+    nargs="+",
+    default=["jpg", "png"],
+    help=f"""Extensions of files to search for.""",
+)
 args = parser.parse_args()
 
 # %% get inputs for OCR (images in directory)
-files = glob.glob(f"{args.path}/**/*.jpg", recursive=args.recursive)
+files = []
+for ext in args.extension:
+    files.extend(glob.glob(f"{args.path}/**/*.{ext}", recursive=args.recursive))
 
 # %% load images
 for f in files:
