@@ -27,20 +27,40 @@ parser.add_argument(
     default=False,
     help=f"""Recursively search the directory for files to convert.""",
 )
+default_extensions = ["jpg", "png", "pdf"]
 parser.add_argument(
     "-e",
     "--extension",
     type=str,
     nargs="+",
-    default=["jpg", "png", "pdf"],
-    help=f"""Extensions of files to search for.""",
+    default=default_extensions,
+    help=f"""Extensions of files to search for (default: {default_extensions}).""",
+)
+default_exclude = ["IMG", "IMAG", "DSC"]
+parser.add_argument(
+    "--exclude",
+    type=str,
+    nargs="+",
+    default=default_exclude,
+    help=f"""Exclude files that contain default: {default_exclude}.""",
 )
 args = parser.parse_args()
 
 # %% get inputs for OCR (images in directory)
+# collect all files with the specified extensions
 files = []
 for ext in args.extension:
     files.extend(glob.glob(f"{args.path}/**/*.{ext}", recursive=args.recursive))
+print(f"{len(files)} with extensions {args.extension}")
+# exclude files given some patterns
+for filename in files:
+    for s in args.exclude:
+        if s in filename:
+            print(f"Drop {filename} because '{s}' is contained in the filename")
+            files.remove(filename)
+            break
+print(f"{len(files)} files after excluding {args.exclude}")
+
 
 # %% save text:
 def save(text: str, to: str) -> bool:
@@ -84,6 +104,7 @@ def image_metadata(img: Image):
 
 
 # %% convert all files
+print("---")
 for f in files:
     try:
         outputfile = f"{os.path.splitext(f)[0]}_ocr.txt"
