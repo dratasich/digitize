@@ -9,6 +9,7 @@ import PyPDF2
 import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
+from PIL.ExifTags import TAGS
 
 # %%
 desc = "Digitize scans and pdfs - convert images and pdfs to text files."
@@ -63,6 +64,25 @@ def pdf2text(path: str) -> str:
     return text
 
 
+# %% get all meta data fields from an image
+def image_metadata(img: Image):
+    """
+    https://www.thepythoncode.com/article/extracting-image-metadata-in-python
+    """
+    exifdata = image.getexif()
+    meta = {}
+    # iterating over all EXIF data fields
+    for tag_id in exifdata:
+        # get the tag name, instead of human unreadable tag id
+        tag = TAGS.get(tag_id, tag_id)
+        data = exifdata.get(tag_id)
+        # decode bytes
+        if isinstance(data, bytes):
+            data = data.decode()
+        meta[tag] = data
+    return meta
+
+
 # %% convert all files
 for f in files:
     try:
@@ -72,7 +92,8 @@ for f in files:
         else:
             print(f"Run tesseract on {f}...")
             image = Image.open(f)
-            print(f"File '{f}': {image.format_description} {image.mode} {image.info}")
+            meta = image_metadata(image)
+            print(f"File '{f}': {image.format_description} {image.mode} {meta}")
             text = pytesseract.image_to_string(image, lang="eng+deu")
         if len(text) > 5:
             save(text, outputfile)
