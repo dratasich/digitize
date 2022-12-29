@@ -1,5 +1,7 @@
 # OCR - Digitalize Scans
 
+Reads pdfs and images (jpg, png by default) to a text file.
+
 ## Dependencies
 
 * [tesseract](https://tesseract-ocr.github.io/tessdoc/)
@@ -22,3 +24,10 @@ poetry run digitize.py .
 ```
 
 See `digitize.py -h` for more options.
+
+Example:
+```bash
+poetry run ./digitize.py --exclude DSC IMAG foto picture photo book -r -- ~/sync/private/
+```
+
+You may exclude the generated files of pattern `*_ocr.txt` for sync.
